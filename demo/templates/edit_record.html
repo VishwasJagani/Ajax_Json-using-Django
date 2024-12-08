@@ -1,16 +1,17 @@
 <form method="post">
+    <h3>Edit Record : </h3>
 {% csrf_token %}
     <div class="mb-3">
         <label for="" class="form-label">Name : </label>
-        <input type="text" class="form-control" id="name" value="{{data.name}}">
+        <input type="text" class="form-control" id="editname" value="{{data.name}}">
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Email address : </label>
-        <input type="email" class="form-control" id="email" value="{{data.email}}">
+        <input type="email" class="form-control" id="editemail" value="{{data.email}}">
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Number : </label>
-        <input type="number" class="form-control" id="number" value="{{data.number}}">
+        <input type="number" class="form-control" id="editnumber" value="{{data.number}}">
     </div>
     <button type="submit" id="editsubmit" class="btn btn-outline-dark">Submit</button>
 </form>

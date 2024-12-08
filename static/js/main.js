@@ -71,20 +71,59 @@ $(document).ready(function(){
         }
         else{
             $("#editform").show();
-            $.ajax({
+            $.ajax({ 
                 type: "POST",
                 url: "/edit_record/" + id,
-                data: {
-                    "id":id,
-                },
+                // data: {
+                //     "id":id,
+                // },
                 success:function(res){
-                    alert("Succes");
+                    if(res.status == 200){
+                        $('#editname').val(res.message.name);
+                        $('#editemail').val(res.message.email);
+                        $('#editnumber').val(res.message.number);
+                    }
                 },
                 error:function(res){
                     alert("Error");
                 },
             });
+            
         }
+        $('#editsubmit').on('click',function(){
+            
+            var name = $('#editname').val();
+            var email = $('#editemail').val();
+            var number = $('#editnumber').val();
+            var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+            formdata = {
+                "name": name,
+                "email": email,
+                "number": number,
+                "id": id,
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/edit_record/' + id,
+                datatype: 'json',
+                data: formdata,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfToken)
+                },
+                success:function(res){
+                    if(res.status == 200){
+                        window.location.href = "../";
+                    }
+                },
+                error:function(res){
+                    if(res.status == 400){
+                        $('#h1').text("Not Inserted");
+                    }
+                },
+            });
+            return false;
+        });
     });
 
     $(".delete-btn").on('click',function(){
