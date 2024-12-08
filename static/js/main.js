@@ -66,7 +66,25 @@ $(document).ready(function(){
 
     $(".edit-btn").on('click',function(){
         const id = $(this).attr('data-id');
-        alert(id);
+        if($("#editform").is(':visible')){
+            $("#editform").hide();
+        }
+        else{
+            $("#editform").show();
+            $.ajax({
+                type: "POST",
+                url: "/edit_record/" + id,
+                data: {
+                    "id":id,
+                },
+                success:function(res){
+                    alert("Succes");
+                },
+                error:function(res){
+                    alert("Error");
+                },
+            });
+        }
     });
 
     $(".delete-btn").on('click',function(){

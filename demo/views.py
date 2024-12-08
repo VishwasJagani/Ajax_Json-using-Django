@@ -31,6 +31,20 @@ def add_student(request):
   
     except Exception as error:
         return JsonResponse({"status":400,"message":error})
+    
+@csrf_exempt
+def edit_record(request,id):
+    data = student.objects.get(id=id)
+    try:
+        if request.method == "POST":
+            id = request.POST.get('id')
+
+            print(id)
+
+    except Exception as error:
+        return JsonResponse({"status":400,"message":error})
+    
+    return render(request,"edit_record.html",{"data":data})
 
 @csrf_exempt   
 def delete_record(request,id):
